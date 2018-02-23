@@ -1,0 +1,53 @@
+<html>
+<h1>Create course</h1>
+<link href="../static/css/style.css" rel="stylesheet">
+<h3>Course Details</h3>
+<body>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.serializeJSON/2.9.0/jquery.serializejson.min.js"></script>
+	<script>
+		$(document).ready(function(){
+		$("#simplepost").click(function(e)
+		{
+			var data = $("#ajaxform").serializeJSON();
+                        console.log(data)			
+ 			$.ajax(
+ 			{
+ 				url : "v1/create_course",
+				type: "POST",
+				contentType: 'application/json; charset=utf-8',
+				data : JSON.stringify(data),
+				dataType: 'json',	
+				success:function(response)
+				 {
+
+					alert("Data saved");
+
+				 },
+ 			"error": function(jqXHR, textStatus, errorThrown)
+ 			{
+ 			}
+ 		}
+		);
+		 e.preventDefault(); //STOP default action
+
+		});
+	});
+</script>
+
+<form id="ajaxform" method="POST" >  
+<div id="message"> </div>
+Course name:<br>
+<input type="text" name="course_name"><br>
+Course Description:<br>
+<input type="text" name="course_description"><br>
+Course Author:<br>
+<input type="text" name="author_name"><br>
+Course Duration:<br>
+<input type="time" name="course_duration" min="12:00" max="18:00" step="600"><br>
+Course Date:<br>
+<input type="date" name="course_date"><br>
+<input type="button" id="simplepost" value="Submit"  align="right" onclick="function();"/>
+</form>
+</body>
+</html>
